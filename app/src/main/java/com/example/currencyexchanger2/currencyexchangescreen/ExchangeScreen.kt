@@ -1,12 +1,30 @@
 package com.example.currencyexchanger2.currencyexchangescreen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -17,6 +35,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.currencyexchanger2.R
 
 @Composable
@@ -24,6 +43,7 @@ fun CurrencyExchangeScreen(
     innerPadding: PaddingValues,
     viewModel: ExchangeViewModel = hiltViewModel(),
 ) {
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
     Column(
         modifier =
             Modifier
@@ -32,39 +52,44 @@ fun CurrencyExchangeScreen(
                 .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        CurrencyExchangeScreenContent()
+        CurrencyExchangeScreenContent(state.balances)
     }
 }
 
 @Composable
-private fun CurrencyExchangeScreenContent() {
-    BalancesSection()
-    CurrencyExchangeSection()
+private fun CurrencyExchangeScreenContent(
+    balances: List<String>,
+    onSubmitClick: () -> Unit = {},
+    temp: () -> Unit = {},
+) {
+    BalancesSection(balances)
+    CurrencyExchangeSection(temp)
+    SubmitButton(onSubmitClick)
 }
 
 @Composable
-private fun BalancesSection() {
+private fun BalancesSection(balances: List<String>) {
     Text(text = stringResource(id = R.string.my_balances))
 
-    BalancesList()
+    BalancesList(balances)
 }
 
 @Composable
-fun BalancesList() {
+fun BalancesList(balances: List<String>) {
     LazyRow(
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        items(10) { index ->
-            BalanceItem(index)
+        items(balances) { balace ->
+            BalanceItem(balace)
         }
     }
 }
 
 @Composable
-fun BalanceItem(index: Int) {
+fun BalanceItem(balance: String) {
     Text(
-        text = "Item $index",
+        text = balance,
         modifier =
             Modifier
                 .background(Color.LightGray)
@@ -73,11 +98,12 @@ fun BalanceItem(index: Int) {
 }
 
 @Composable
-private fun CurrencyExchangeSection() {
+private fun CurrencyExchangeSection(temp: () -> Unit) {
     Text(text = stringResource(id = R.string.currency_exchange))
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.clickable { temp() },
     ) {
         Icon(
             painter = painterResource(id = R.drawable.arrow),
@@ -99,7 +125,7 @@ private fun CurrencyExchangeSection() {
         SpinnerComponent()
     }
 
-    Divider(color = Color.Gray, thickness = 1.dp)
+    HorizontalDivider(color = Color.Gray, thickness = 1.dp)
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -123,9 +149,12 @@ private fun CurrencyExchangeSection() {
         )
         SpinnerComponent()
     }
+}
 
+@Composable
+private fun SubmitButton(onSubmitClick: () -> Unit) {
     Button(
-        onClick = { /* Handle submit */ },
+        onClick = { onSubmitClick() },
         modifier =
             Modifier
                 .fillMaxWidth()

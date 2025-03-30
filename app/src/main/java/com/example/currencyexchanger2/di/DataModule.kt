@@ -1,10 +1,13 @@
 package com.example.currencyexchanger2.di
 
 import android.content.Context
-import com.example.currencyexchanger2.data.BalancesRepository
-import com.example.currencyexchanger2.data.BalancesRepositoryImpl
 import com.example.currencyexchanger2.data.ExchangeRatesProvider
 import com.example.currencyexchanger2.data.ExchangeRatesProviderImpl
+import com.example.currencyexchanger2.data.balances.BalancesManager
+import com.example.currencyexchanger2.data.balances.BalancesRepository
+import com.example.currencyexchanger2.data.balances.BalancesRepositoryImpl
+import com.example.currencyexchanger2.data.balances.BalancesStorage
+import com.example.currencyexchanger2.data.balances.SharedPreferencesBalancesStorage
 import com.example.currencyexchanger2.network.ExchangeRatesClient
 import com.example.currencyexchanger2.network.mappers.ExchangeRatesMapper
 import com.example.currencyexchanger2.network.repository.ExchangeRatesRepository
@@ -29,9 +32,13 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideBalanceRepository(
+    fun provideBalancesStorage(
         @ApplicationContext context: Context,
-    ): BalancesRepository = BalancesRepositoryImpl(context)
+    ): BalancesStorage = SharedPreferencesBalancesStorage(context)
+
+    @Provides
+    @Singleton
+    fun provideBalancesRepository(balancesManager: BalancesManager): BalancesRepository = BalancesRepositoryImpl(balancesManager)
 
     @Provides
     @Singleton

@@ -12,10 +12,12 @@ class ExchangeRatesRepositoryImpl(
     private val exchangeRatesMapper: ExchangeRatesMapper,
     private val client: ExchangeRatesClient,
 ) : ExchangeRatesRepository {
-    override suspend fun getExchangeRates(): ExchangeRates =
+    override suspend fun fetchExchangeRates(): ExchangeRates =
         inFlow { client.getExchangeRates() }
             .map {
                 it.body() ?: throw NetworkErrorException()
             }.map { exchangeRatesMapper.map(it) }
             .first()
+
+    override suspend fun getAvailableCurrencies(): List<String> = fetchExchangeRates().rates.keys.toList()
 }

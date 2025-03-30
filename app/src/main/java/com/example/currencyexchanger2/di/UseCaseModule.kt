@@ -1,6 +1,8 @@
 package com.example.currencyexchanger2.di
 
 import com.example.currencyexchanger2.network.repository.ExchangeRatesRepository
+import com.example.currencyexchanger2.network.usecase.GetAvailableCurrenciesUseCase
+import com.example.currencyexchanger2.network.usecase.GetAvailableCurrenciesUseCaseImpl
 import com.example.currencyexchanger2.network.usecase.GetExchangeRatesUseCase
 import com.example.currencyexchanger2.network.usecase.GetExchangeRatesUseCaseImpl
 import dagger.Module
@@ -16,4 +18,9 @@ class UseCaseModule {
     @Singleton
     fun provideGetExchangeRatesUseCase(exchangeRatesRepository: ExchangeRatesRepository): GetExchangeRatesUseCase =
         GetExchangeRatesUseCaseImpl(exchangeRatesRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetAvailableCurrenciesUseCase(exchangeRatesRepository: ExchangeRatesRepository): GetAvailableCurrenciesUseCase =
+        GetAvailableCurrenciesUseCaseImpl(exchangeRatesRepository)
 }
