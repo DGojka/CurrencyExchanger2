@@ -16,7 +16,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.currencyexchanger2.currencyexchangescreen.CurrencyExchangeScreen
 import com.example.currencyexchanger2.ui.theme.CurrencyExchanger2Theme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,17 +41,21 @@ class MainActivity : ComponentActivity() {
 fun MyTopBar() {
     CenterAlignedTopAppBar(
         title = { Text(text = "My App") },
-        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = Color(0xFF008080)
-        )
+        colors =
+            TopAppBarDefaults.centerAlignedTopAppBarColors(
+                containerColor = Color(0xFF008080),
+            ),
     )
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun Greeting(
+    name: String,
+    modifier: Modifier = Modifier,
+) {
     Text(
         text = "Hello $name!",
-        modifier = modifier
+        modifier = modifier,
     )
 }
 

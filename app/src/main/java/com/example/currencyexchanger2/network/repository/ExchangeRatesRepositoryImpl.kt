@@ -10,12 +10,12 @@ import kotlinx.coroutines.flow.map
 
 class ExchangeRatesRepositoryImpl(
     private val exchangeRatesMapper: ExchangeRatesMapper,
-    private val client: ExchangeRatesClient
-) :
-    ExchangeRatesRepository {
-    override suspend fun getExchangeRates(): ExchangeRates {
-        return inFlow { client.getExchangeRates() }.map {
-            it.body() ?: throw NetworkErrorException()
-        }.map { exchangeRatesMapper.map(it) }.first()
-    }
+    private val client: ExchangeRatesClient,
+) : ExchangeRatesRepository {
+    override suspend fun getExchangeRates(): ExchangeRates =
+        inFlow { client.getExchangeRates() }
+            .map {
+                it.body() ?: throw NetworkErrorException()
+            }.map { exchangeRatesMapper.map(it) }
+            .first()
 }

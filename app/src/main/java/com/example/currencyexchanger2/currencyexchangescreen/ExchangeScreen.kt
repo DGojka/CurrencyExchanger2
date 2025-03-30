@@ -16,16 +16,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.currencyexchanger2.R
 
 @Composable
-fun CurrencyExchangeScreen(innerPadding: PaddingValues) {
+fun CurrencyExchangeScreen(
+    innerPadding: PaddingValues,
+    viewModel: ExchangeViewModel = hiltViewModel(),
+) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(innerPadding)
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         CurrencyExchangeScreenContent()
     }
@@ -48,7 +53,7 @@ private fun BalancesSection() {
 fun BalancesList() {
     LazyRow(
         contentPadding = PaddingValues(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(10) { index ->
             BalanceItem(index)
@@ -60,36 +65,36 @@ fun BalancesList() {
 fun BalanceItem(index: Int) {
     Text(
         text = "Item $index",
-        modifier = Modifier
-            .background(Color.LightGray)
-            .padding(16.dp)
+        modifier =
+            Modifier
+                .background(Color.LightGray)
+                .padding(16.dp),
     )
 }
 
 @Composable
 private fun CurrencyExchangeSection() {
-
     Text(text = stringResource(id = R.string.currency_exchange))
 
     Row(
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             painter = painterResource(id = R.drawable.arrow),
             contentDescription = null,
-            tint = Color.Red
+            tint = Color.Red,
         )
         Text(
             text = stringResource(id = R.string.sell),
             color = Color.Black,
-            fontSize = 16.sp
+            fontSize = 16.sp,
         )
         Spacer(modifier = Modifier.weight(1f))
         TextField(
             value = "100.00", // Replace with actual state management
             onValueChange = {},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
         SpinnerComponent()
     }
@@ -97,35 +102,36 @@ private fun CurrencyExchangeSection() {
     Divider(color = Color.Gray, thickness = 1.dp)
 
     Row(
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             painter = painterResource(id = R.drawable.arrow),
             contentDescription = null,
             tint = Color.Green,
-            modifier = Modifier.rotate(180f)
+            modifier = Modifier.rotate(180f),
         )
         Text(
             text = stringResource(id = R.string.receive),
             color = Color.Black,
-            fontSize = 16.sp
+            fontSize = 16.sp,
         )
         Spacer(modifier = Modifier.weight(1f))
         Text(
             text = "+110.30",
             color = Color.Green,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
         SpinnerComponent()
     }
 
     Button(
         onClick = { /* Handle submit */ },
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .height(56.dp),
         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF008080)),
-        shape = RoundedCornerShape(12.dp)
+        shape = RoundedCornerShape(12.dp),
     ) {
         Text(text = stringResource(id = R.string.submit))
     }
@@ -135,9 +141,10 @@ private fun CurrencyExchangeSection() {
 fun SpinnerComponent() {
     // Placeholder for a dropdown/spinner implementation
     Box(
-        modifier = Modifier
-            .size(56.dp)
-            .background(Color.LightGray)
+        modifier =
+            Modifier
+                .size(56.dp)
+                .background(Color.LightGray),
     ) {
         Text(text = "▼", modifier = Modifier.align(Alignment.Center))
     }
