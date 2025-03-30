@@ -6,9 +6,9 @@ import androidx.core.content.edit
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class BalanceRepositoryImpl(
+class BalancesRepositoryImpl(
     context: Context,
-) : BalanceRepository {
+) : BalancesRepository {
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences(BALANCES_PREFS, Context.MODE_PRIVATE)
     private val gson = Gson()
