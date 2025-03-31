@@ -35,9 +35,7 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideBalancesStorage(
-        @ApplicationContext context: Context,
-    ): BalancesStorage = SharedPreferencesBalancesStorage(context)
+    fun provideBalancesStorage(sharedPreferences: SharedPreferences): BalancesStorage = SharedPreferencesBalancesStorage(sharedPreferences)
 
     @Provides
     @Singleton
