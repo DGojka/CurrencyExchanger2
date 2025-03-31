@@ -2,17 +2,19 @@ package com.example.currencyexchanger2.currencyexchangescreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.currencyexchanger2.currencyexchangescreen.helpers.BalanceFormatter
 import com.example.currencyexchanger2.currencyexchangescreen.helpers.ExchangeCalculator
-import com.example.currencyexchanger2.data.balances.BalancesRepository
-import com.example.currencyexchanger2.data.balances.usecase.AddFundsUseCase
+import com.example.currencyexchanger2.currencyexchangescreen.managers.ExchangeResult
+import com.example.currencyexchanger2.currencyexchangescreen.managers.ProceedExchangeUseCase
 import com.example.currencyexchanger2.data.balances.usecase.GetBalancesUseCase
-import com.example.currencyexchanger2.data.balances.usecase.RemoveFundsUseCase
+import com.example.currencyexchanger2.data.transactions.CurrencyAmount
 import com.example.currencyexchanger2.formatTo2Decimals
 import com.example.currencyexchanger2.network.usecase.GetAvailableCurrenciesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -22,9 +24,9 @@ import javax.inject.Inject
 class ExchangeViewModel @Inject constructor(
     private val exchangeCalculator: ExchangeCalculator,
     private val getAvailableCurrenciesUseCase: GetAvailableCurrenciesUseCase,
-    private val addFundsUseCase: AddFundsUseCase,
-    private val removeFundsUseCase: RemoveFundsUseCase,
     private val getBalancesUseCase: GetBalancesUseCase,
+    private val balanceFormatter: BalanceFormatter,
+    private val proceedExchangeUseCase: ProceedExchangeUseCase,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(ExchangeScreenUiState())
     val uiState: StateFlow<ExchangeScreenUiState> = _uiState.asStateFlow()
@@ -50,6 +52,27 @@ class ExchangeViewModel @Inject constructor(
         recalculateExchange()
     }
 
+    fun confirmExchange() {
+        viewModelScope.launch {
+            with(_uiState.value) {
+                proceedExchangeUseCase(
+                    from = CurrencyAmount(amountToSell, currencyToSell),
+                    to = CurrencyAmount((convertedAmount ?: "0").toDouble(), currencyToReceive),
+                ).collect { result ->
+                    when (result) {
+                        is ExchangeResult.Success -> {
+                            _uiState.update { it.copy(transactionMessage = result.message) }
+                        }
+
+                        is ExchangeResult.Error -> {
+                            _uiState.update { it.copy(transactionMessage = result.message) }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private fun recalculateExchange() {
         val state = _uiState.value
         viewModelScope.launch {
@@ -67,7 +90,7 @@ class ExchangeViewModel @Inject constructor(
     private fun loadBalances() {
         viewModelScope.launch {
             getBalancesUseCase().collect { balances ->
-                _uiState.update { it.copy(balances = balances.mapBalancesToUi()) }
+                _uiState.update { it.copy(balances = balanceFormatter.mapBalancesToDisplayList(balances)) }
             }
         }
     }
@@ -78,9 +101,4 @@ class ExchangeViewModel @Inject constructor(
             _uiState.update { it.copy(availableCurrencies = currencies) }
         }
     }
-
-    private fun Map<String, Double>.mapBalancesToUi() =
-        this.entries.map {
-            "${it.value.formatTo2Decimals()} ${it.key}"
-        }
 }

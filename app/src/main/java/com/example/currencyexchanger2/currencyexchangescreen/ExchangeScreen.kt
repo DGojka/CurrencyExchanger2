@@ -67,7 +67,7 @@ fun CurrencyExchangeScreen(
         CurrencyExchangeScreenContent(
             balances = state.balances,
             currencyList = state.availableCurrencies,
-            onSubmitClick = { },
+            onSubmitClick = { viewModel.confirmExchange() },
             onCurrencyToReceiveChange = { currency -> viewModel.updateCurrencyToReceive(currency) },
             onCurrencyToSellChange = { currency -> viewModel.updateCurrencyToSell(currency) },
             initialCurrencyToSell = state.currencyToSell,

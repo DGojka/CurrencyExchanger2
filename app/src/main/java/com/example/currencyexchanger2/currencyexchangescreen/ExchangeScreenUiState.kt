@@ -7,4 +7,5 @@ data class ExchangeScreenUiState(
     val convertedAmount: String? = null,
     val currencyToReceive: String = "USD",
     val availableCurrencies: List<String> = emptyList(),
+    val transactionMessage: String? = null,
 )
