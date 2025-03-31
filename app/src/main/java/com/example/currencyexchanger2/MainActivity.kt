@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.currencyexchanger2.currencyexchangescreen.CurrencyExchangeScreen
+import com.example.currencyexchanger2.currencyexchangescreen.ui.CurrencyExchangeScreen
 import com.example.currencyexchanger2.ui.theme.CurrencyExchanger2Theme
 import dagger.hilt.android.AndroidEntryPoint
 
