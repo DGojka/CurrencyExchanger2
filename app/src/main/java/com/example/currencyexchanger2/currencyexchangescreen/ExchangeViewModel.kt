@@ -8,13 +8,14 @@ import com.example.currencyexchanger2.currencyexchangescreen.managers.ExchangeRe
 import com.example.currencyexchanger2.currencyexchangescreen.managers.ProceedExchangeUseCase
 import com.example.currencyexchanger2.data.balances.usecase.GetBalancesUseCase
 import com.example.currencyexchanger2.data.transactions.CurrencyAmount
+import com.example.currencyexchanger2.data.transactions.IncrementTransactionCountUseCase
 import com.example.currencyexchanger2.formatTo2Decimals
 import com.example.currencyexchanger2.network.usecase.GetAvailableCurrenciesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -27,6 +28,7 @@ class ExchangeViewModel @Inject constructor(
     private val getBalancesUseCase: GetBalancesUseCase,
     private val balanceFormatter: BalanceFormatter,
     private val proceedExchangeUseCase: ProceedExchangeUseCase,
+    private val incrementTransactionCountUseCase: IncrementTransactionCountUseCase,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(ExchangeScreenUiState())
     val uiState: StateFlow<ExchangeScreenUiState> = _uiState.asStateFlow()
@@ -57,11 +59,12 @@ class ExchangeViewModel @Inject constructor(
             with(_uiState.value) {
                 proceedExchangeUseCase(
                     from = CurrencyAmount(amountToSell, currencyToSell),
-                    to = CurrencyAmount((convertedAmount ?: "0").toDouble(), currencyToReceive),
+                    to = CurrencyAmount((convertedAmount?.toDoubleOrNull() ?: 0.0), currencyToReceive),
                 ).collect { result ->
                     when (result) {
                         is ExchangeResult.Success -> {
                             _uiState.update { it.copy(transactionMessage = result.message) }
+                            incrementTransactionCountUseCase()
                         }
 
                         is ExchangeResult.Error -> {
@@ -96,7 +99,7 @@ class ExchangeViewModel @Inject constructor(
     }
 
     private fun loadAvailableCurrencies() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val currencies = getAvailableCurrenciesUseCase()
             _uiState.update { it.copy(availableCurrencies = currencies) }
         }
