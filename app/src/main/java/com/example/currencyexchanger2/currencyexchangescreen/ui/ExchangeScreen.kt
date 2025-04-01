@@ -2,6 +2,7 @@ package com.example.currencyexchanger2.currencyexchangescreen.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,25 +26,41 @@ fun CurrencyExchangeScreen(
     viewModel: ExchangeViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    Column(
+
+    Box(
         modifier =
             Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
-                .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+                .padding(innerPadding),
     ) {
-        CurrencyExchangeScreenContent(
-            balances = state.balances,
-            currencyList = state.availableCurrencies,
-            onSubmitClick = { viewModel.confirmExchange() },
-            onCurrencyToReceiveChange = { currency -> viewModel.updateCurrencyToReceive(currency) },
-            onCurrencyToSellChange = { currency -> viewModel.updateCurrencyToSell(currency) },
-            currencyToSell = state.currencyToSell,
-            currencyToReceive = state.currencyToReceive,
-            onAmountChange = { newAmount -> viewModel.updateAmount(newAmount) },
-            calculatedExchangeAmount = (state.convertedAmount ?: 0).toString(),
-        )
+        Column(
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            CurrencyExchangeScreenContent(
+                balances = state.balances,
+                currencyList = state.availableCurrencies,
+                onSubmitClick = { viewModel.confirmExchange() },
+                onCurrencyToReceiveChange = { currency -> viewModel.updateCurrencyToReceive(currency) },
+                onCurrencyToSellChange = { currency -> viewModel.updateCurrencyToSell(currency) },
+                currencyToSell = state.currencyToSell,
+                currencyToReceive = state.currencyToReceive,
+                onAmountChange = { newAmount -> viewModel.updateAmount(newAmount) },
+                calculatedExchangeAmount = (state.convertedAmount ?: 0).toString(),
+            )
+        }
+
+        state.exchangeResult?.let { result ->
+            Box(
+                modifier = Modifier.fillMaxSize().padding(bottom = 12.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                HandleExchangeResultDialog(exchangeResult = result) { viewModel.dismissDialog() }
+            }
+        }
     }
 }
 

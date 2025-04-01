@@ -1,11 +1,13 @@
 package com.example.currencyexchanger2.currencyexchangescreen.managers
 
-sealed class ExchangeResult {
+sealed class ExchangeResult(
+    open val message: String,
+) {
     data class Success(
-        val message: String,
-    ) : ExchangeResult()
+        override val message: String,
+    ) : ExchangeResult(message)
 
     data class Error(
-        val message: String,
-    ) : ExchangeResult()
+        override val message: String,
+    ) : ExchangeResult(message)
 }

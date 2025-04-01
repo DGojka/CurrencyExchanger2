@@ -63,17 +63,21 @@ class ExchangeViewModel @Inject constructor(
                 ).collect { result ->
                     when (result) {
                         is ExchangeResult.Success -> {
-                            _uiState.update { it.copy(transactionMessage = result.message) }
+                            _uiState.update { it.copy(exchangeResult = result) }
                             incrementTransactionCountUseCase()
                         }
 
                         is ExchangeResult.Error -> {
-                            _uiState.update { it.copy(transactionMessage = result.message) }
+                            _uiState.update { it.copy(exchangeResult = result) }
                         }
                     }
                 }
             }
         }
+    }
+
+    fun dismissDialog() {
+        _uiState.update { it.copy(exchangeResult = null) }
     }
 
     private fun recalculateExchange() {

@@ -1,5 +1,7 @@
 package com.example.currencyexchanger2.currencyexchangescreen
 
+import com.example.currencyexchanger2.currencyexchangescreen.managers.ExchangeResult
+
 data class ExchangeScreenUiState(
     val balances: List<String> = emptyList(),
     val amountToSell: Double = 0.0,
@@ -7,5 +9,5 @@ data class ExchangeScreenUiState(
     val convertedAmount: String? = null,
     val currencyToReceive: String = "USD",
     val availableCurrencies: List<String> = emptyList(),
-    val transactionMessage: String? = null,
+    val exchangeResult: ExchangeResult? = null,
 )
