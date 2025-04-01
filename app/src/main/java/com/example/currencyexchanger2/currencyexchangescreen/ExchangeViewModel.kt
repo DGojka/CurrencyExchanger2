@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.currencyexchanger2.currencyexchangescreen.helpers.BalanceFormatter
 import com.example.currencyexchanger2.currencyexchangescreen.helpers.ExchangeCalculator
-import com.example.currencyexchanger2.currencyexchangescreen.managers.ExchangeResult
+import com.example.currencyexchanger2.currencyexchangescreen.data.ExchangeResult
 import com.example.currencyexchanger2.currencyexchangescreen.managers.ProceedExchangeUseCase
-import com.example.currencyexchanger2.data.balances.usecase.GetBalancesUseCase
-import com.example.currencyexchanger2.data.transactions.CurrencyAmount
-import com.example.currencyexchanger2.data.transactions.IncrementTransactionCountUseCase
+import com.example.currencyexchanger2.currencyexchangescreen.managers.balances.usecase.GetBalancesUseCase
+import com.example.currencyexchanger2.currencyexchangescreen.data.CurrencyAmount
+import com.example.currencyexchanger2.currencyexchangescreen.managers.transactions.IncrementTransactionCountUseCase
 import com.example.currencyexchanger2.formatTo2Decimals
 import com.example.currencyexchanger2.network.usecase.GetAvailableCurrenciesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

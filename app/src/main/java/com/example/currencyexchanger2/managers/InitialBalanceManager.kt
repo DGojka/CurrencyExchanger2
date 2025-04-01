@@ -1,7 +1,7 @@
 package com.example.currencyexchanger2.managers
 
-import com.example.currencyexchanger2.data.balances.usecase.AddFundsUseCase
-import com.example.currencyexchanger2.data.transactions.CurrencyAmount
+import com.example.currencyexchanger2.currencyexchangescreen.managers.balances.usecase.AddFundsUseCase
+import com.example.currencyexchanger2.currencyexchangescreen.data.CurrencyAmount
 import javax.inject.Inject
 
 class InitialBalanceManager @Inject constructor(

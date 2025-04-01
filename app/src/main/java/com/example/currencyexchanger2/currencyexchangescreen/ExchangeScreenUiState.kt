@@ -1,6 +1,6 @@
 package com.example.currencyexchanger2.currencyexchangescreen
 
-import com.example.currencyexchanger2.currencyexchangescreen.managers.ExchangeResult
+import com.example.currencyexchanger2.currencyexchangescreen.data.ExchangeResult
 
 data class ExchangeScreenUiState(
     val balances: List<String> = emptyList(),

@@ -1,4 +1,4 @@
-package com.example.currencyexchanger2.data.balances.usecase
+package com.example.currencyexchanger2.currencyexchangescreen.managers.balances.usecase
 
 import kotlinx.coroutines.flow.StateFlow
 

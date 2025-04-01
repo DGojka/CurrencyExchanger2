@@ -1,6 +1,6 @@
 package com.example.currencyexchanger2.currencyexchangescreen.helpers
 
-import com.example.currencyexchanger2.data.exchangerates.ExchangeRatesProvider
+import com.example.currencyexchanger2.currencyexchangescreen.managers.exchangerates.ExchangeRatesProvider
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

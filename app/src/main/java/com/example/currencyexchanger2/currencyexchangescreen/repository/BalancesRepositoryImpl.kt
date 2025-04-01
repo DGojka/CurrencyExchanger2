@@ -1,5 +1,6 @@
-package com.example.currencyexchanger2.data.balances
+package com.example.currencyexchanger2.currencyexchangescreen.repository
 
+import com.example.currencyexchanger2.currencyexchangescreen.managers.balances.BalancesManager
 import kotlinx.coroutines.flow.StateFlow
 
 class BalancesRepositoryImpl(

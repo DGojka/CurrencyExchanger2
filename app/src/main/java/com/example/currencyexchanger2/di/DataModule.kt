@@ -2,15 +2,15 @@ package com.example.currencyexchanger2.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.currencyexchanger2.data.balances.BalancesManager
-import com.example.currencyexchanger2.data.balances.BalancesRepository
-import com.example.currencyexchanger2.data.balances.BalancesRepositoryImpl
-import com.example.currencyexchanger2.data.balances.BalancesStorage
-import com.example.currencyexchanger2.data.balances.SharedPreferencesBalancesStorage
-import com.example.currencyexchanger2.data.exchangerates.ExchangeRatesProvider
-import com.example.currencyexchanger2.data.exchangerates.ExchangeRatesProviderImpl
-import com.example.currencyexchanger2.data.transactions.TransactionCountRepository
-import com.example.currencyexchanger2.data.transactions.TransactionCountRepositoryImpl
+import com.example.currencyexchanger2.currencyexchangescreen.managers.balances.BalancesManager
+import com.example.currencyexchanger2.currencyexchangescreen.repository.BalancesRepository
+import com.example.currencyexchanger2.currencyexchangescreen.repository.BalancesRepositoryImpl
+import com.example.currencyexchanger2.currencyexchangescreen.managers.balances.BalancesStorage
+import com.example.currencyexchanger2.currencyexchangescreen.managers.balances.SharedPreferencesBalancesStorage
+import com.example.currencyexchanger2.currencyexchangescreen.managers.exchangerates.ExchangeRatesProvider
+import com.example.currencyexchanger2.currencyexchangescreen.managers.exchangerates.ExchangeRatesProviderImpl
+import com.example.currencyexchanger2.currencyexchangescreen.repository.TransactionCountRepository
+import com.example.currencyexchanger2.currencyexchangescreen.repository.TransactionCountRepositoryImpl
 import com.example.currencyexchanger2.network.ExchangeRatesClient
 import com.example.currencyexchanger2.network.mappers.ExchangeRatesMapper
 import com.example.currencyexchanger2.network.repository.ExchangeRatesRepository

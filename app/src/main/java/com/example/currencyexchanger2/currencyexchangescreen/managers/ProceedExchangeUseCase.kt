@@ -1,9 +1,10 @@
 package com.example.currencyexchanger2.currencyexchangescreen.managers
 
+import com.example.currencyexchanger2.currencyexchangescreen.data.ExchangeResult
 import com.example.currencyexchanger2.currencyexchangescreen.helpers.FeeProvider
-import com.example.currencyexchanger2.data.balances.usecase.AddFundsUseCase
-import com.example.currencyexchanger2.data.balances.usecase.RemoveFundsUseCase
-import com.example.currencyexchanger2.data.transactions.CurrencyAmount
+import com.example.currencyexchanger2.currencyexchangescreen.managers.balances.usecase.AddFundsUseCase
+import com.example.currencyexchanger2.currencyexchangescreen.managers.balances.usecase.RemoveFundsUseCase
+import com.example.currencyexchanger2.currencyexchangescreen.data.CurrencyAmount
 import com.example.currencyexchanger2.formatTo2Decimals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

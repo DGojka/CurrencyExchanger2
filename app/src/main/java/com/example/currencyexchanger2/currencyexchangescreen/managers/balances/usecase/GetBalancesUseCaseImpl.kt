@@ -1,6 +1,6 @@
-package com.example.currencyexchanger2.data.balances.usecase
+package com.example.currencyexchanger2.currencyexchangescreen.managers.balances.usecase
 
-import com.example.currencyexchanger2.data.balances.BalancesRepository
+import com.example.currencyexchanger2.currencyexchangescreen.repository.BalancesRepository
 import kotlinx.coroutines.flow.StateFlow
 
 class GetBalancesUseCaseImpl(

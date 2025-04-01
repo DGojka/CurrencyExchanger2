@@ -1,4 +1,4 @@
-package com.example.currencyexchanger2.currencyexchangescreen.managers
+package com.example.currencyexchanger2.currencyexchangescreen.data
 
 sealed class ExchangeResult(
     open val message: String,

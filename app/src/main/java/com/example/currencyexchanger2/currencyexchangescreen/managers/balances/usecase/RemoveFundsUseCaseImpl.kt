@@ -1,7 +1,7 @@
-package com.example.currencyexchanger2.data.balances.usecase
+package com.example.currencyexchanger2.currencyexchangescreen.managers.balances.usecase
 
-import com.example.currencyexchanger2.data.balances.BalancesRepository
-import com.example.currencyexchanger2.data.transactions.CurrencyAmount
+import com.example.currencyexchanger2.currencyexchangescreen.repository.BalancesRepository
+import com.example.currencyexchanger2.currencyexchangescreen.data.CurrencyAmount
 
 class RemoveFundsUseCaseImpl(
     private val repository: BalancesRepository,

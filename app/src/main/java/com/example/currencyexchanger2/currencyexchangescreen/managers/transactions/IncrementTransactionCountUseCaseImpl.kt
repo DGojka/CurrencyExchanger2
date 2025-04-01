@@ -1,5 +1,6 @@
-package com.example.currencyexchanger2.data.transactions
+package com.example.currencyexchanger2.currencyexchangescreen.managers.transactions
 
+import com.example.currencyexchanger2.currencyexchangescreen.repository.TransactionCountRepository
 import javax.inject.Inject
 
 class IncrementTransactionCountUseCaseImpl @Inject constructor(

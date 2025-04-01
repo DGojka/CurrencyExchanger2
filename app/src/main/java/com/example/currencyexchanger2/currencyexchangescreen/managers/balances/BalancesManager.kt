@@ -1,4 +1,4 @@
-package com.example.currencyexchanger2.data.balances
+package com.example.currencyexchanger2.currencyexchangescreen.managers.balances
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

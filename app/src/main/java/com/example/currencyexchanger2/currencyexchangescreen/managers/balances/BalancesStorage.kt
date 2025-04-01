@@ -1,4 +1,4 @@
-package com.example.currencyexchanger2.data.balances
+package com.example.currencyexchanger2.currencyexchangescreen.managers.balances
 
 interface BalancesStorage {
     fun loadBalances(): Map<String, Double>

@@ -1,6 +1,6 @@
 package com.example.currencyexchanger2.currencyexchangescreen.helpers
 
-import com.example.currencyexchanger2.data.transactions.GetTransactionCountUseCase
+import com.example.currencyexchanger2.currencyexchangescreen.managers.transactions.GetTransactionCountUseCase
 
 class FeeProviderImpl(
     private val getTransactionCountUseCase: GetTransactionCountUseCase,

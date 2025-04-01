@@ -1,4 +1,4 @@
-package com.example.currencyexchanger2.data.transactions
+package com.example.currencyexchanger2.currencyexchangescreen.data
 
 data class CurrencyAmount(
     val amount: Double,
