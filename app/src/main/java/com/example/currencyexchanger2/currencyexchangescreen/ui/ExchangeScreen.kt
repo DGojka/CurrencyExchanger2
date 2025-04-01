@@ -55,7 +55,7 @@ fun CurrencyExchangeScreen(
 
         state.exchangeResult?.let { result ->
             Box(
-                modifier = Modifier.fillMaxSize().padding(bottom = 12.dp),
+                modifier = Modifier.fillMaxSize().padding(bottom = 32.dp),
                 contentAlignment = Alignment.Center,
             ) {
                 HandleExchangeResultDialog(exchangeResult = result) { viewModel.dismissDialog() }
@@ -82,8 +82,8 @@ private fun CurrencyExchangeScreenContent(
             currencyList = currencyList,
             selectedCurrencyToSell = currencyToSell,
             selectedCurrencyToReceive = currencyToReceive,
-            onAmountChange = onAmountChange,
-            calculatedExchangeAmount = calculatedExchangeAmount,
+            onSellAmountChange = onAmountChange,
+            convertedAmount = calculatedExchangeAmount,
             onCurrencyToSellChange = onCurrencyToSellChange,
             onCurrencyToReceiveChange = onCurrencyToReceiveChange,
         )

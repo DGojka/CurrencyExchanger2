@@ -1,7 +1,10 @@
 package com.example.currencyexchanger2.currencyexchangescreen.ui
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.HorizontalDivider
@@ -20,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.currencyexchanger2.R
@@ -29,17 +33,17 @@ fun CurrencyExchangeSection(
     currencyList: List<String>,
     selectedCurrencyToSell: String,
     selectedCurrencyToReceive: String,
-    calculatedExchangeAmount: String,
-    onAmountChange: (newAmount: String) -> Unit,
-    onCurrencyToSellChange: (newCurrency: String) -> Unit,
-    onCurrencyToReceiveChange: (newCurrency: String) -> Unit,
+    convertedAmount: String,
+    onSellAmountChange: (newAmount: String) -> Unit = { },
+    onCurrencyToSellChange: (newCurrency: String) -> Unit = { },
+    onCurrencyToReceiveChange: (newCurrency: String) -> Unit = { },
 ) {
     Text(text = stringResource(id = R.string.currency_exchange))
-
-    SellSection(onAmountChange, currencyList, selectedCurrencyToSell, onCurrencyToSellChange)
+    Spacer(modifier = Modifier.height(8.dp))
+    SellSection(onSellAmountChange, currencyList, selectedCurrencyToSell, onCurrencyToSellChange)
     HorizontalDivider(color = Color.Gray, thickness = 1.dp)
     ReceiveSection(
-        calculatedExchangeAmount,
+        convertedAmount,
         currencyList,
         selectedCurrencyToReceive,
         onCurrencyToReceiveChange,
@@ -79,7 +83,7 @@ private fun SellSection(
 
 @Composable
 private fun ReceiveSection(
-    calculatedExchangeAmount: String,
+    convertedAmount: String,
     currencyList: List<String>,
     selectedCurrencyToReceive: String,
     onCurrencyToReceiveChange: (newCurrency: String) -> Unit,
@@ -100,7 +104,7 @@ private fun ReceiveSection(
         )
         Spacer(modifier = Modifier.weight(1f))
         Text(
-            text = calculatedExchangeAmount,
+            text = convertedAmount,
             color = Color.Green,
             modifier = Modifier.weight(1f),
         )
@@ -124,4 +128,17 @@ private fun AmountTextField(
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
     )
+}
+
+@Composable
+@Preview
+fun ExchangeSection(){
+    Column(Modifier.background(Color.White)){
+        CurrencyExchangeSection(
+            currencyList = listOf(),
+            selectedCurrencyToSell = "EUR",
+            selectedCurrencyToReceive = "USD",
+            convertedAmount = "100.0",
+        )
+    }
 }

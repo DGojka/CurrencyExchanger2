@@ -24,7 +24,6 @@ fun BalancesSection(balances: List<String>) {
 fun BalancesList(balances: List<String>) {
     LazyRow(
         modifier = Modifier.padding(vertical = 12.dp),
-        contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(balances) { balance ->
