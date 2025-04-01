@@ -2,9 +2,9 @@ package com.example.currencyexchanger2.currencyexchangescreen.managers
 
 import com.example.currencyexchanger2.currencyexchangescreen.data.ExchangeResult
 import com.example.currencyexchanger2.currencyexchangescreen.helpers.FeeProvider
-import com.example.currencyexchanger2.currencyexchangescreen.managers.balances.usecase.AddFundsUseCase
-import com.example.currencyexchanger2.currencyexchangescreen.managers.balances.usecase.RemoveFundsUseCase
 import com.example.currencyexchanger2.currencyexchangescreen.data.CurrencyAmount
+import com.example.currencyexchanger2.currencyexchangescreen.managers.balances.usecase.ManageFundsUseCase
+import com.example.currencyexchanger2.currencyexchangescreen.managers.transactions.TransactionUseCase
 import com.example.currencyexchanger2.formatTo2Decimals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -12,10 +12,10 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class ProceedExchangeUseCase @Inject constructor(
-    private val addFundsUseCase: AddFundsUseCase,
-    private val removeFundsUseCase: RemoveFundsUseCase,
-    private val feeProvider: FeeProvider
+class ExecuteExchangeUseCase @Inject constructor(
+    private val manageFundsUseCase: ManageFundsUseCase,
+    private val feeProvider: FeeProvider,
+    private val transactionUseCase: TransactionUseCase,
 ) {
     operator fun invoke(
         from: CurrencyAmount,
@@ -23,8 +23,9 @@ class ProceedExchangeUseCase @Inject constructor(
     ): Flow<ExchangeResult> =
         flow {
             try {
-                removeFundsUseCase(currencyAmount = from)
-                addFundsUseCase(currencyAmount = to)
+                manageFundsUseCase.removeFunds(currencyAmount = from)
+                manageFundsUseCase.addFunds(currencyAmount = to)
+                transactionUseCase.incrementTransactionCount()
                 emit(
                     ExchangeResult.Success(
                         "You have converted ${from.amount} ${from.currency} to ${to.amount} ${to.currency}. Commission Fee: ${

@@ -6,7 +6,7 @@ import com.example.currencyexchanger2.currencyexchangescreen.helpers.ExchangeCal
 import com.example.currencyexchanger2.currencyexchangescreen.helpers.FeeProvider
 import com.example.currencyexchanger2.currencyexchangescreen.helpers.FeeProviderImpl
 import com.example.currencyexchanger2.currencyexchangescreen.managers.exchangerates.ExchangeRatesProvider
-import com.example.currencyexchanger2.currencyexchangescreen.managers.transactions.GetTransactionCountUseCase
+import com.example.currencyexchanger2.currencyexchangescreen.managers.transactions.TransactionUseCase
 import com.example.currencyexchanger2.managers.FirstRunManager
 import com.example.currencyexchanger2.managers.FirstRunManagerImpl
 import dagger.Module
@@ -20,8 +20,8 @@ import javax.inject.Singleton
 class HelpersModule {
     @Provides
     @Singleton
-    fun provideFeeProvider(getTransactionCountUseCase: GetTransactionCountUseCase): FeeProvider =
-        FeeProviderImpl(getTransactionCountUseCase)
+    fun provideFeeProvider(transactionUseCase: TransactionUseCase): FeeProvider =
+        FeeProviderImpl(transactionUseCase)
 
     @Provides
     @Singleton

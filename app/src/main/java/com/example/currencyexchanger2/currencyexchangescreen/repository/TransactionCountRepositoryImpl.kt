@@ -9,12 +9,12 @@ import javax.inject.Singleton
 class TransactionCountRepositoryImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) : TransactionCountRepository {
-    override fun getTransactionCount(): Int = sharedPreferences.getInt(TRANSACTION_COUNT_KEY, 0)
+    override fun getTransactionCount(): Long = sharedPreferences.getLong(TRANSACTION_COUNT_KEY, 0L)
 
     override fun incrementTransactionCount() {
-        val currentCount = sharedPreferences.getInt(TRANSACTION_COUNT_KEY, 0)
+        val currentCount = sharedPreferences.getLong(TRANSACTION_COUNT_KEY, 0)
         sharedPreferences.edit {
-            putInt(TRANSACTION_COUNT_KEY, currentCount + 1)
+            putLong(TRANSACTION_COUNT_KEY, currentCount + 1L)
         }
     }
 
