@@ -17,13 +17,13 @@ import com.example.currencyexchanger2.R
 @Composable
 fun BalancesSection(balances: List<String>) {
     Text(text = stringResource(id = R.string.my_balances))
-
     BalancesList(balances)
 }
 
 @Composable
 fun BalancesList(balances: List<String>) {
     LazyRow(
+        modifier = Modifier.padding(vertical = 12.dp),
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {

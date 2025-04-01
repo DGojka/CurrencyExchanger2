@@ -2,6 +2,7 @@ package com.example.currencyexchanger2.currencyexchangescreen.ui
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -35,6 +36,23 @@ fun CurrencyExchangeSection(
 ) {
     Text(text = stringResource(id = R.string.currency_exchange))
 
+    SellSection(onAmountChange, currencyList, selectedCurrencyToSell, onCurrencyToSellChange)
+    HorizontalDivider(color = Color.Gray, thickness = 1.dp)
+    ReceiveSection(
+        calculatedExchangeAmount,
+        currencyList,
+        selectedCurrencyToReceive,
+        onCurrencyToReceiveChange,
+    )
+}
+
+@Composable
+private fun SellSection(
+    onAmountChange: (newAmount: String) -> Unit,
+    currencyList: List<String>,
+    selectedCurrencyToSell: String,
+    onCurrencyToSellChange: (newCurrency: String) -> Unit,
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -49,12 +67,23 @@ fun CurrencyExchangeSection(
             fontSize = 16.sp,
         )
         Spacer(modifier = Modifier.weight(1f))
-        AmountTextField(modifier = Modifier.weight(1f)) { onAmountChange(it) }
+        AmountTextField(
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .padding(end = 8.dp),
+        ) { onAmountChange(it) }
         Spinner(currencyList, selectedCurrencyToSell) { onCurrencyToSellChange(it) }
     }
+}
 
-    HorizontalDivider(color = Color.Gray, thickness = 1.dp)
-
+@Composable
+private fun ReceiveSection(
+    calculatedExchangeAmount: String,
+    currencyList: List<String>,
+    selectedCurrencyToReceive: String,
+    onCurrencyToReceiveChange: (newCurrency: String) -> Unit,
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -96,4 +125,3 @@ private fun AmountTextField(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
     )
 }
-
