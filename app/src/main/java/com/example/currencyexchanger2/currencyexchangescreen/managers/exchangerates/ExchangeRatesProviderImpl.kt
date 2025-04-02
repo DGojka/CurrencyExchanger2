@@ -11,11 +11,13 @@ import kotlinx.coroutines.flow.flowOn
 class ExchangeRatesProviderImpl(
     val getExchangeRates: GetExchangeRatesUseCase,
 ) : ExchangeRatesProvider {
-    override val exchangeRatesFlow: Flow<ExchangeRates> =
+
+    override fun exchangeRatesFlow(): Flow<ExchangeRates> =
         flow {
             while (true) {
                 emit(getExchangeRates())
                 delay(5000)
             }
         }.flowOn(Dispatchers.IO)
+
 }

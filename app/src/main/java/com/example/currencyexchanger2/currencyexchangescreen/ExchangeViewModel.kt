@@ -62,15 +62,8 @@ class ExchangeViewModel @Inject constructor(
                         currencyToReceive
                     ),
                 ).collect { result ->
-                    when (result) {
-                        is ExchangeResult.Success -> {
-                            _uiState.update { it.copy(exchangeResult = result) }
-                        }
-
-                        is ExchangeResult.Error -> {
-                            _uiState.update { it.copy(exchangeResult = result) }
-                        }
-                    }
+                    _uiState.update { it.copy(exchangeResult = result) }
+                    recalculateExchange()
                 }
             }
         }

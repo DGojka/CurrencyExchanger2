@@ -5,17 +5,16 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class ExchangeCalculatorImpl(
-    exchangeRatesProvider: ExchangeRatesProvider,
+    val exchangeRatesProvider: ExchangeRatesProvider,
     val feeProvider: FeeProvider,
 ) : ExchangeCalculator {
-    private val exchangeRatesFlow = exchangeRatesProvider.exchangeRatesFlow
 
     override fun calculateExchange(
         amount: Double,
         currencyFrom: String,
         currencyTo: String,
     ): Flow<Double> {
-        return exchangeRatesFlow.map { rates ->
+        return exchangeRatesProvider.exchangeRatesFlow().map { rates ->
             if (currencyFrom == currencyTo) return@map amount
             val fee = feeProvider.getFee(amount)
             val amountAfterFee = amount - fee
