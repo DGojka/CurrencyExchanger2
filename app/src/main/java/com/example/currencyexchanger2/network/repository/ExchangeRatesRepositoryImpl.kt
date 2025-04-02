@@ -32,7 +32,7 @@ class ExchangeRatesRepositoryImpl(
                 attempt < 3
             }.catch { e ->
                 Log.e("ExchangeRatesRepository", "Fetching exchange rates failed: ${e.message}")
-                ExchangeRates("EUR", emptyMap())
+                emit(ExchangeRates("EUR", emptyMap()))
             }.first()
 
     override suspend fun getAvailableCurrencies(): List<String> =

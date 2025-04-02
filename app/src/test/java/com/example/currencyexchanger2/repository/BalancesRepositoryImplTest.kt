@@ -1,4 +1,4 @@
-package com.example.currencyexchanger2
+package com.example.currencyexchanger2.repository
 
 import com.example.currencyexchanger2.currencyexchangescreen.managers.balances.BalancesManager
 import com.example.currencyexchanger2.currencyexchangescreen.repository.BalancesRepositoryImpl
