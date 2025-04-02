@@ -3,7 +3,6 @@ package com.example.currencyexchanger2.currencyexchangescreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.currencyexchanger2.currencyexchangescreen.data.CurrencyAmount
-import com.example.currencyexchanger2.currencyexchangescreen.data.ExchangeResult
 import com.example.currencyexchanger2.currencyexchangescreen.helpers.BalanceFormatter
 import com.example.currencyexchanger2.currencyexchangescreen.helpers.ExchangeCalculator
 import com.example.currencyexchanger2.currencyexchangescreen.managers.ExecuteExchangeUseCase
