@@ -39,9 +39,13 @@ fun CurrencyExchangeSection(
     onCurrencyToReceiveChange: (newCurrency: String) -> Unit = { },
 ) {
     Text(text = stringResource(id = R.string.currency_exchange))
-    Spacer(modifier = Modifier.height(8.dp))
+    Spacer(modifier = Modifier.height(16.dp))
     SellSection(onSellAmountChange, currencyList, selectedCurrencyToSell, onCurrencyToSellChange)
-    HorizontalDivider(color = Color.Gray, thickness = 1.dp)
+    HorizontalDivider(
+        color = Color.Gray,
+        thickness = 1.dp,
+        modifier = Modifier.padding(vertical = 12.dp)
+    )
     ReceiveSection(
         convertedAmount,
         currencyList,
@@ -132,8 +136,8 @@ private fun AmountTextField(
 
 @Composable
 @Preview
-fun ExchangeSection(){
-    Column(Modifier.background(Color.White)){
+fun ExchangeSection() {
+    Column(Modifier.background(Color.White)) {
         CurrencyExchangeSection(
             currencyList = listOf(),
             selectedCurrencyToSell = "EUR",
