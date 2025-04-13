@@ -28,7 +28,10 @@ class ExecuteExchangeUseCase @Inject constructor(
                 transactionUseCase.incrementTransactionCount()
                 emit(
                     ExchangeResult.Success(
-                        "You have converted ${from.amount} ${from.currency} to ${to.amount} ${to.currency}. Commission Fee: ${
+                        from = from,
+                        to= to,
+                        fee = CurrencyAmount(feeProvider.getFee(from.amount), from.currency) ,
+                        message = "Converted ${from.amount} ${from.currency} to ${to.amount} ${to.currency}. Commission Fee: ${
                             feeProvider.getFee(
                                 from.amount
                             ).formatTo2Decimals()

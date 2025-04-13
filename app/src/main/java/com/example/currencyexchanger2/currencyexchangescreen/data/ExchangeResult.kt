@@ -5,6 +5,9 @@ sealed class ExchangeResult(
 ) {
     data class Success(
         override val message: String,
+        val from: CurrencyAmount,
+        val to: CurrencyAmount,
+        val fee: CurrencyAmount,
     ) : ExchangeResult(message)
 
     data class Error(

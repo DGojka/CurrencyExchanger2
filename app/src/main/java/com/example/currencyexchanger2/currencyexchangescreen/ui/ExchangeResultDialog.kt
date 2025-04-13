@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.currencyexchanger2.R
 import com.example.currencyexchanger2.currencyexchangescreen.data.ExchangeResult
+import com.example.currencyexchanger2.formatTo2Decimals
 
 @Composable
 fun ExchangeResultDialog(
@@ -59,9 +60,25 @@ fun HandleExchangeResultDialog(
             is ExchangeResult.Success -> stringResource(id = R.string.currency_converted)
         }
 
+    val description = when (exchangeResult) {
+        is ExchangeResult.Error -> stringResource(
+            id = R.string.exchange_failed_message,
+            exchangeResult.message
+        )
+        is ExchangeResult.Success -> stringResource(
+            id = R.string.exchange_success_message,
+            exchangeResult.from.amount.formatTo2Decimals(),
+            exchangeResult.from.currency,
+            exchangeResult.to.amount.formatTo2Decimals(),
+            exchangeResult.to.currency,
+            exchangeResult.fee.amount.formatTo2Decimals(),
+            exchangeResult.fee.currency,
+        )
+    }
+
     ExchangeResultDialog(
         title = title,
-        description = exchangeResult.message,
+        description = description,
         onDismiss = onDismiss,
     )
 }
